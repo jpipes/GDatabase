@@ -1,0 +1,10 @@
+<html>
+<head>
+<title> {{ year }} Detail </title>
+<body>
+<div> <h1> {{ year }} Titles </h1> </div>
+{{year.pinball_set.all}}
+<div> {% for title in year.pinball_set.all %} <div><a href="{% url 'pinball_detail' title.pk %}">{{ title }}</a></div> {% endfor %}</div>
+</body>
+</html>
+

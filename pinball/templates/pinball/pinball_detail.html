@@ -1,0 +1,38 @@
+{% extends 'pinball/base.html' %}
+{% block content %}  
+    <div class=title><h1> {{ pinball }} </h1></div>
+    <div class=container>
+
+    <div><b>Company: </b><a href="{% url 'company_detail' pk=pinball.company.pk %}">{{pinball.company}}</a></div>
+    <div><b>Release: </b> {{pinball.release}}</a></div>
+    <div><b>Summary: </b>{{pinball.summary}}</div>
+    <div><b>Genre: </b>{% for genre in pinball.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+    <div><b>Series: </b>{% if pinball.game_series %} {{pinball.game_series}} {% else %} N/A {% endif %}</div>
+    <div><b>Coils: </b>{% for coil in pinball.coils.all %} {{ coil }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+    <div><b>Parts: </b>{% for part in pinball.parts.all %} <div>{{ part.part_number }} - {{ part }}</div>{% if not forloop.last %}{% endif %}{% endfor %}</div>
+    <div><a href="{% url 'repair_list' pk=pinball.pk %}">All repair logs for this title</a></div>
+    </div>
+   
+    
+    <hr>
+    <div class=container>
+    {% for copy in pinball.pinballinstance_set.all %}
+    
+      <div class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }} - <a href="{% url 'location_detail' pk=copy.location.pk %}">{{ copy.location.name }}</a></div>
+      
+      {% if copy.status == 'm' %}
+        <div class = text-danger><strong>Current Issues: </strong>{{copy.issues}}</div>
+      {% else %}
+        <div class = text-muted><strong>Current Issues: </strong>{{copy.issues}}</div>
+      {% endif %}
+    
+      <div class = text-muted><strong>Region: </strong>{{copy.region}}</div>
+      <div class = text-muted><strong>Serial Number: </strong> {% if copy.sn %} {{copy.sn}} {% else %} Unknown {% endif %}</div>
+      <div class = text-muted><strong>Last 3 Repairs: </strong> {% for repair in copy.repair_set.all|dictsortreversed:"date_logged"|slice:":3" %}<div>{{ repair }} - {{ repair.repair }}</div> {% endfor %} </div>
+      <div><a href="{% url 'repair_list_instance' pk=copy.pk %}"> Repair logs for this cabinet </a></div>
+      </div>
+          {% endfor %}
+    </div>
+    </div>
+{% endblock %}
+Messages.objects.all().order_by('-id')[:10]

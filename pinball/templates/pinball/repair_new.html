@@ -1,0 +1,23 @@
+{% extends 'pinball/base.html' %}
+{% block content %}
+<div class = title> <h1> Add {{pinball.pinball.title}} ({{pinball.sn}}) Repair Log </h1></div>
+<form method = "POST">
+{% csrf_token %}
+{% if form.non_field_errors%}{{ form.non_field_errors }} {% endif %}
+<div class = content>
+<div class=row>
+<div class=col-sm-2><strong>{{form.pinball.label}}</strong>{{form.pinball.errors}}{{form.pinball}}</div>
+<div class=col-sm-2><strong>{{form.date_logged.label}}</strong>{{form.date_logged.errors}}{{form.date_logged}}</div>
+</div>
+<div class=row>
+<div class=col-sm-2><strong>{{form.symptom.label}}</strong>{{form.symptom.errors}}{{form.symptom}}</div>
+<div class=col-sm-2><strong>{{form.repair.label}}</strong>{{form.repair.errors}}{{form.repair}}</div>
+</div>
+<hr>
+</div>
+<button type="submit">Save</button>
+</div>
+</form>
+
+
+{% endblock %}          

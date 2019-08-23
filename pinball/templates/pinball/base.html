@@ -1,0 +1,42 @@
+{% load static %}
+<html>
+    
+    <head>
+        <title>Free Play Pinball Database</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/pinball.css' %}">
+    </head>
+    
+    <body>
+
+        <div class="page-header">
+            <div class ="page-header a1"><h1><a href="/">Free Play Pinball Database</a></h1></div>
+        </div>
+
+        <div class="content container">
+            <div class="row">
+                <div class="col-sm-1">
+                    <nav id="sidebar">
+                    <div class="sidebar-header"><h3>Locations</h3></div>
+                    <hr>
+                    <ul class="list-unstyled components">
+                    {% for site in sites %}
+                    <li class="active"><a href="{% url 'location_edit' site.id %}">{{site}}</a></li>
+                    {% endfor %}
+                    <hr>
+                    <li class="active"><a href="{% url 'location_new' %}"><span class="glyphicon glyphicon-plus"></span>Add New Location</a></li>
+                    <li class="active"><a href="{% url 'pinball_new' %}"><span class="glyphicon glyphicon-plus"></span>Add Pinball Info</a></li>
+                    </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    <!-- Page Content -->
+<div class=content>
+                {% block content %}
+                {% endblock %}
+</div>
+    </body>
+</html>

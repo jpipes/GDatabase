@@ -1,0 +1,5 @@
+{% extends 'pinball/base.html' %}
+{% block content %}  
+<div> <h1> {{ company }} Titles </h1> </div>
+<div> {% for title in company.pinball_set.all %} <div><a href="{% url 'pinball_detail' title.pk %}">{{ title }}</a></div> {% endfor %}</div>
+{% endblock %}

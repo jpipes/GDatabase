@@ -1,0 +1,14 @@
+
+{% extends 'pinball/base.html' %}
+
+{% block content %}
+    <div class=title><h2>Add New Location</h2></div>
+    <form method="POST" class="post-form">
+    {% csrf_token %}
+        <div container>
+        <div class = title>{{form.name.errors}}{{ form.name }}{{form.name.label}}</div>
+        <div class = title>{{form.address.errors}}{{form.address}}{{form.address.label}}</div>
+        <div class = title><button type="submit" class="save btn btn-default">Save</button></div>
+        </div>
+    </form>
+{% endblock %}

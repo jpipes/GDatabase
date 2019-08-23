@@ -1,0 +1,29 @@
+{% extends 'pinball/base.html' %}
+{% block content %}  
+    
+    <div class = title><h1> All Games </h1></div>
+    <div class = container>
+    <div class = row>
+    <div class = col-sm-2><strong>Title</strong></div>
+    <div class = col-sm-2><strong>Company</strong></div>
+    <div class = col-sm-1><strong>Year</strong></div>
+    <div class = col-sm-1><strong>#</strong></div>
+    </div>
+    {% for pinball in pinballs %}
+        <div class = row>
+        <div class = col-sm-2><a href="{% url 'pinball_detail' pk=pinball.pk %}">{{ pinball }}</a></div>
+        <div class = col-sm-2> <a href="{% url 'company_detail' pk=pinball.company.pk %}">{{pinball.company}}</a></div>
+        <div class = col-sm-1>{{ pinball.release }}</div>
+        <div class = col-sm-1> {{pinball.pinballinstance_set.count}}</div>
+        </div>
+    {% endfor %}
+    </div>
+    <hr>
+    <div class=row>
+    <div>
+    <a href="{% url 'pinball_new' %}"><span class="glyphicon glyphicon-plus"></span> Add New Pinball Information</a>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

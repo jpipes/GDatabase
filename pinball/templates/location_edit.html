@@ -1,0 +1,30 @@
+{% extends 'pinball/base.html' %}
+{% block content %}
+<div class = title> <h1> Edit {{site}} Status </h1></div>
+<div class = title><h2>{{site.address}}</h2></div>
+
+
+
+<form method = "POST">
+{% csrf_token %}
+{{formset.management_form}}
+
+<div class = container>
+{% for field in formset %}
+{% if formset.errors %}{{formset.errors}}{% endif %}
+{% if form.non_field_errors%}{{ form.non_field_errors }} {% endif %}
+
+<div class = row>
+<div class = col-sm-3> {{field.pinball.errors}}<a href="{% url 'pinball_detail' pk=field.instance.pinball.pk %}">{{field.instance.pinball}}</a></div>
+<div class = col-sm-3> {{field.sn.errors}}{{field.instance.sn}}</div>
+<div class = col-sm-3> {{field.status.errors}}{{field.status}}</div>
+<div class = col-sm-3> {{field.location.errors}}{{field.location}}</div>
+<div class = col-sm-3> {{field.id.errors}}{{field.id}}</div>
+</div class=row>
+{% endfor %}
+<button type="submit">Save</button>
+</div>
+</form>
+
+{% endblock %}
+
