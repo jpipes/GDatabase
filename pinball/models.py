@@ -89,7 +89,7 @@ class PinballInstance(models.Model):
     )
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.id} ({self.pinball.title})'
+        return self.pinball.title
 
 """ Secondary objects for pinball database """
 
